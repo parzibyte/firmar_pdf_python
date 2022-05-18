@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firmar - By Parzibyte</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.1/css/bulma.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://parzibyte.me/blog">
+                <img alt=""
+                    src="https://raw.githubusercontent.com/parzibyte/ejemplo-mern/master/src/img/parzibyte_logo.png"
+                    style="max-height: 80px" />
+            </a>
+            <button class="navbar-burger is-warning button" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a target="_blank" rel="noreferrer" href="https://parzibyte.me/blog" class="button is-primary">
+                            <strong>By Parzibyte</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", () => {
+            const boton = document.querySelector(".navbar-burger");
+            const menu = document.querySelector(".navbar-menu");
+            boton.onclick = () => {
+                menu.classList.toggle("is-active");
+                boton.classList.toggle("is-active");
+            };
+        });
+    </script>
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h1 class="is-size-1">Firmar documento</h1>
+                <form method="POST" action="{{url_for('procesar')}}" enctype="multipart/form-data">
+                    <div class="field">
+                        <label class="label">Contraseña</label>
+                        <div class="control">
+                            <input class="input" name="palabra_secreta" required type="password"
+                                placeholder="Contraseña">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="file has-name">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="pdf" required accept=".pdf">
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </span>
+                                    <span class="file-label">
+                                        Seleccione el PDF
+                                    </span>
+                                </span>
+                                <span class="file-name" id="nombrePdf">
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="file has-name">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="firma" required accept=".p12">
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </span>
+                                    <span class="file-label">
+                                        Seleccione la firma
+                                    </span>
+                                </span>
+                                <span class="file-name" id="nombreFirma">
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <input class="button is-primary" type="submit" value="Firmar">
+                </form>
+            </div>
+
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const $pdf = document.querySelector("[name='pdf']");
+            const $nombrePdf = document.querySelector("#nombrePdf");
+            const $firma = document.querySelector("[name='firma']");
+            const $nombreFirma = document.querySelector("#nombreFirma");
+            $pdf.onchange = () => {
+                if ($pdf.files.length <= 0) {
+                    $nombrePdf.textContent = "";
+                    return;
+                }
+                const archivo = $pdf.files[0];
+                $nombrePdf.textContent = archivo.name;
+            };
+
+            $firma.onchange = () => {
+                if ($firma.files.length <= 0) {
+                    $nombreFirma.textContent = "";
+                    return;
+                }
+                const archivo = $firma.files[0];
+                $nombreFirma.textContent = archivo.name;
+            };
+        });
+    </script>
+</body>
+
+</html>
