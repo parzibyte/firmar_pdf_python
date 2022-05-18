@@ -1,4 +1,3 @@
-import PyPDF2
 import io
 from flask import Flask, render_template, request, send_file
 from firmador import firmar
@@ -9,7 +8,6 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.route('/')
 def index():
-    PyPDF2
     return render_template("formulario.html")
 
 
